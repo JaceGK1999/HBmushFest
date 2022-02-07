@@ -3,8 +3,8 @@ import { renderMushroom, renderFriend } from './render-utils.js';
 import { addFriend, findFriendByName } from './data-utils.js';
 
 const friendsEl = document.querySelector('.friends');
-const mushroomsEl = document.querySelectorAll('.mushrooms');
-const addMushroomButton = document.getElementById('add-mushroom');
+const mushroomsEl = document.querySelector('.mushrooms');
+const addMushroomButton = document.getElementById('add-mushroom-button');
 const addFriendButton = document.getElementById('add-friend-button');
 const friendInputEl = document.getElementById('friend-input');
 
@@ -12,22 +12,22 @@ const friendInputEl = document.getElementById('friend-input');
 
 let mushroomCount = 3;
 
-const friendData = [
+let friendData = [
     {
         name: 'Erich',
-        satisfaction: 2
+        satisfaction: 2,
     },
     {
         name: 'Sarah',
-        satisfaction: 3
+        satisfaction: 3,
     },
     {
         name: 'Missael',
-        satisfaction: 1
+        satisfaction: 1,
     },
     {
         name: 'Soraya',
-        satisfaction: 2
+        satisfaction: 2,
     },
 ];
 
@@ -39,16 +39,16 @@ function displayFriends() {
         friendEl.addEventListener('click', () => {
             const friendInState = findFriendByName(friend.name, friendData);
             console.log('clicky');
-    
+
             if (mushroomCount === 0) {
                 alert('no mushrooms left! go forage for some more');
             }
             if (mushroomCount > 0 && friendInState.satisfaction < 3) {
                 friendInState.happiness++;
                 mushroomCount++;
-        
+
                 displayFriends(friendData);
-                displayMushrooms();    
+                displayMushrooms();
             }
         });
 
@@ -56,15 +56,14 @@ function displayFriends() {
     }
 }
 
-
-function displayMushrooms() { 
+function displayMushrooms() {
     for (let i = 0; i < mushroomCount; i++) {
         const mushroomEl = renderMushroom();
 
         mushroomsEl.append(mushroomEl);
+        console.log(mushroomEl);
     }
 }
-
 
 addFriendButton.addEventListener('click', () => {
     const name = friendInputEl;
@@ -76,9 +75,8 @@ addFriendButton.addEventListener('click', () => {
     displayFriends(friendData);
 });
 
-
 addMushroomButton.addEventListener('click', () => {
-    if (Math.random() > .5) {
+    if (Math.random() > 0.5) {
         alert('found a mushroom!');
 
         mushroomCount;
